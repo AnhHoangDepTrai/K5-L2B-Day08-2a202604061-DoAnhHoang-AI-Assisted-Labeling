@@ -6,14 +6,14 @@
 
 | Lớp | Model + cỡ | Ngưỡng | Vì sao (dẫn `run_id` trong `model_log.csv`) |
 |---|---|---|---|
-| person / bicycle / motorbike / car / bus / truck | <<YOLO26m>> | <<theo lớp, từ threshold_sweep>> | <<>> |
-| three_wheeler | <<YOLOE-26s, prompt: ...>> | <<>> | <<>> |
+| person / bicycle / motorbike / car / bus / truck | YOLO26m | person=0.15; lớp còn lại mặc định 0.3 | r01/r02: trên 4 ảnh gold, person recall 93% (14/15), precision 39% (14/36). Motorbike/car không đạt recall 90% với ngưỡng <=0.5; bicycle và bus không có mẫu, truck chỉ có 1. |
+| three_wheeler | YOLOE-26s, prompt tuk-tuk / cyclo / cargo tricycle | 0.15 | r03: trên 7 vật gold, recall 100% (7/7), precision 78% (7/9); img_002 có box nhầm pickup 0.37. |
 
-- Lệnh `merge_prelabels.py` đã dùng (dán nguyên): <<>>
+- Lệnh `merge_prelabels.py` đã dùng (dán nguyên): <<chưa chạy; điền sau Pha 4>>
 - **Phiên bản SAM bạn chọn** (SAM 1 / 2.1 / 3) và lý do: <<chất lượng mask, tốc độ, RAM, quyền truy cập>>
-- Lỗi nào **không sửa được bằng đổi ngưỡng** (ví dụ tuk-tuk bị gọi `car`)? Sửa thế nào? <<>>
-- Box **điểm cao mà sai** hoặc **điểm thấp mà đúng** (ảnh nào): <<>>
-- Giới hạn: chọn ngưỡng trên chính gold (4 ảnh) nên số đo máy trên gold là lạc quan: <<>>
+- Lỗi nào **không sửa được bằng đổi ngưỡng** (ví dụ tuk-tuk bị gọi `car`)? Sửa thế nào? YOLO26 không có lớp `three_wheeler`, nên tuk-tuk bị bỏ sót hoặc gán `car`; dùng YOLOE để gợi ý lớp này rồi người duyệt xác nhận (r01–r04).
+- Box **điểm cao mà sai** hoặc **điểm thấp mà đúng** (ảnh nào): YOLOE gán nhầm `three_wheeler` cho pickup ở img_002 với điểm 0.37 (r03).
+- Giới hạn: chọn ngưỡng trên chính gold (4 ảnh) nên số đo máy trên gold là lạc quan: threshold_sweep chọn và đo trên cùng 4 ảnh; person có 15 mẫu, three_wheeler 7 mẫu, nên kết quả chỉ là ước lượng nội bộ, cần QC trên batch độc lập.
 
 ## 2. AI error profile (từ `qc/review_stats.md`)
 
