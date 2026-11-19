@@ -1,1 +1,4 @@
 case_id,image,nguon,van_de,quyet_dinh,quy_tac_ghi_vao_guideline,phien_ban_guideline
+CAL-01,img_002.jpg,loi_may,YOLO26 co the goi tuk-tuk la car/truck hoac bo sot,Use YOLOE prompt va nguoi duyet xac nhan three_wheeler,Box ba banh tuc la xe three_wheeler khi co ca khung/mui/thung hang; khong dua vao cac lop COCO cua detector,v1.1
+CAL-02,img_005.jpg,cau_hoi_mo,Co vat ro rang nhung box cao duoi 20 px hoac nam trong cum dong nguoi,Khong bo qua vat chi vi co box nho; vat cao duoi 20 px gom vao ignore_region neu khong tach duoc,Ap dung muc 4.1.6 va chi dung ignore_region cho cum it nhat 5 vat,v1.1
+CAL-03,img_018.jpg,can_review,Khung tuk-tuk chong len motorbike/person va box YOLOE trung lap,Giu moi vat rieng, merge box trung IoU >=0.6, tick can_review cho ca che khuat va soat lai toan bo box de giam automation bias,v1.1
